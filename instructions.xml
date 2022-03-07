@@ -1,0 +1,57 @@
+create a folder named "jenkins-data"
+create a folder "var/run"
+docker-compose -f jenkins-docker-compose.yml up
+enter to localhost:8080
+get the password -> docker exec jenkins-server-test cat /var/jenkins_home/secrets/initialAdminPassword
+create credentials
+docker exec -it --user root <container id> bash
+sudo apt install curl
+curl https://get.docker.com/ > dockerinstall && chmod 777 dockerinstall && ./dockerinstall
+docker exec -it --user root ef442c6fa5c5 chmod 666 /var/run/docker.sock
+curl -L https://github.com/docker/compose/releases/download/1.25.3/run.sh -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+
+Source:https://www.cloudbees.com/blog/how-to-install-and-run-jenkins-with-docker-compose
+Jenkins with Agent
+create a folder named "jenkins-data"
+create a folder "var/run"
+docker-compose -f jenkins-docker-compose.yml up
+enter to localhost:8080
+get the password -> docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+create credentials
+
+SSH generate
+ssh-keygen -t rsa -f jenkins_agent
+cat .\jenkins_agent
+Manage credentials and stuff - Check link to enter the private ssh ssh-keygen
+
+CREDENTIAL INFORMATION:
+ID = jenkins_agent
+USERNAME = jenkins
+PRIVATE KEY = cat .\jenkins_agent
+
+Get the public ssh 
+cat .\jenkins_agent.pub
+
+
+Add the new service in the docker compose
+
+Change in the node configuration:
+Remote Root Directory: /home/jenkins/agent
+host: agent
+Java Path: /opt/java/openjdk/bin/java
+
+install node js: apt install nodejs
+install npm: apt install npm
+
+Install chrome
+apt-get update
+apt install wget
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+apt install ./google-chrome-stable_current_amd64.deb
+
+Install GIT
+apt-get update
+apt install git-all
+ 

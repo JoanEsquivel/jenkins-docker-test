@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports: 
+      - "8080:8080"
+      - "50000:50000"
+    container_name: jenkins
+    volumes: 
+     - ./jenkins-data:/var/jenkins_home
+     - ./var/run/docker.sock:/var/run/docker.sock
+    expose:
+     - 4444
+  agent:
+    image: jenkins/ssh-agent:jdk11
+    privileged: true
+    user: root
+    container_name: agent
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2v7DG1UX7RFwbMnaK97tu/Z+qOKNqlSfLtB1otSBAVDKLPbI/pXpj7hJKN4JIiNxLjQH0TzG6gdQ4pCb2h/bZpxLbxgeqLzfj9nfwhfCngzxg5kDQN+FOY3bmg751HJqxPfi8FuzM2XxPp4MEUk+JTCSqWhG5sqFnVNw6I1DlTVkPesseXSkneGii5rMdjAlMLlOW+LcQB+qOwBdYDvoUHAliKUZLZJv4C3wC6afS9mWp0e7LgopYOvBPcKcBD/fHWbUeD0onuEsr2u+DmDHG6SJjmeqZ0Sv7Uihkyn9Ef6xJHLm+rN0Ce/qPJsbpm3YSo+0y/rXKFbm7FRoWl6nKT6s3arTvYTzbGkkTQFxoLWU249qi/UalBUkdKbPcyOhn0eU5C31b7+adhdJREHNtOQ4GJfXC+BgtyLbyCUTfVWkE4q4M7jao5cxzpkd6DmVcMlUmpPIa1XyHIkE8ufsYreELwqw1yeJiEA6Vzk9zKTMCcQPrS+GPgpu/eu/jMq0= joanpc@DESKTOP-KNE48VN
